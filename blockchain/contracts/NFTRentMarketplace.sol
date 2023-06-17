@@ -11,9 +11,6 @@ import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
 contract NFTRentMarketplace is VRFConsumerBaseV2, ConfirmedOwner, IERC721Receiver {
-  //MarketVolumeFactorUpdater
-  address internal marketVolumeFactorUpdaterContract;
-
   //PriceFeed
   AggregatorV3Interface internal dataFeed;
 
@@ -151,21 +148,8 @@ contract NFTRentMarketplace is VRFConsumerBaseV2, ConfirmedOwner, IERC721Receive
     _;
   }
 
-  modifier onlyMarketVolumeUpdaterOrOwner() {
-    require(
-      msg.sender == marketVolumeFactorUpdaterContract || msg.sender == owner(),
-      "Only the market volume factor updater or the owner can update the contract"
-    );
-    _;
-  }
-
-  function setMarketVolumeFactorUpdaterContract(address _marketVolumeFactorUpdaterContract) public onlyOwner {
-    marketVolumeFactorUpdaterContract = _marketVolumeFactorUpdaterContract;
-  }
-
   function getLatestPrice() public view returns (int, uint8) {
-    (uint80 roundId, int256 answer, uint256 startedAt, uint256 updatedAt, uint80 answeredInRound) = dataFeed
-      .latestRoundData();
+    (, int256 answer, , , ) = dataFeed.latestRoundData();
     uint8 decimal = dataFeed.decimals();
     return (answer, decimal);
   }
@@ -254,7 +238,6 @@ contract NFTRentMarketplace is VRFConsumerBaseV2, ConfirmedOwner, IERC721Receive
     require(pool.isActive, "Pool with the given category ID does not exist or is not active");
 
     uint256 basePrice = pool.basePrice;
-    uint256 poolSupply = pool.availableItems.length;
 
     rentQuoteMatic = calculateRentPrice(basePrice, rentTime);
     (int answer, uint8 decimal) = getLatestPrice();
@@ -442,12 +425,8 @@ contract NFTRentMarketplace is VRFConsumerBaseV2, ConfirmedOwner, IERC721Receive
   }
 
   function calculateRentPrice(uint256 basePrice, uint256 rentTime) internal view returns (uint256) {
-    uint256 timeAdjustedPrice = basePrice.mul(rentTime).mul(marketVolumeFactor) / 10 ** 18;
+    uint256 timeAdjustedPrice = basePrice.mul(rentTime) / 10 ** 18;
     return timeAdjustedPrice;
-  }
-
-  function adjustMarketVolumeFactor(uint256 newFactor) public onlyMarketVolumeUpdaterOrOwner {
-    marketVolumeFactor = newFactor;
   }
 
   function findIndex(uint256[] storage array, uint256 value) internal view returns (uint256) {
