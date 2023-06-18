@@ -45,6 +45,7 @@
   "dependencies": {
     "@chainlink/contracts": "^0.6.1",
     "@chainlink/env-enc": "^1.0.5",
+    "@nomiclabs/hardhat-waffle": "^2.0.6",
     "@openzeppelin/contracts": "4.9.0",
     "@openzeppelin/contracts-upgradeable": "4.9.0",
     "@thirdweb-dev/chains": "^0.1.19",
