@@ -8,8 +8,8 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const getGameName = (gameId) => {
   const gameNames = {
-    1: "Boom Boogers",
-    2: "Cursed Stone"
+    1: 'Boom Boogers',
+    2: 'Cursed Stone',
   };
 
   return gameNames[gameId];
@@ -21,9 +21,12 @@ const FilterBar = ({ gameIds, onFilterChange }) => {
   };
 
   return (
-    <Box  w='30%' marginBottom="1em">
+    <Box w="30%" marginBottom="1em">
       <Flex alignItems="center" spacing={3}>
-        <Text minWidth={150} fontSize={22} fontFamily={'Big Shoulders Text'}> Filter by game </Text>
+        <Text minWidth={150} fontSize={22} fontFamily={'Big Shoulders Text'}>
+          {' '}
+          Filter by game{' '}
+        </Text>
         <Select placeholder="Select game" onChange={handleFilterChange}>
           {gameIds.map((gameId) => (
             <option key={gameId} value={gameId}>
@@ -37,10 +40,7 @@ const FilterBar = ({ gameIds, onFilterChange }) => {
 };
 
 export default function Pools() {
-  const { data, error, isLoading } = useSWR(
-    `${URLS.POOLS}/get-all`,
-    fetcher,
-  );
+  const { data, error, isLoading } = useSWR(`${URLS.POOLS}/get-all`, fetcher);
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   const handleFilterChange = (gameId) => {
@@ -56,7 +56,7 @@ export default function Pools() {
 
   return (
     <Container maxW={'90%'} p={5}>
-   <Flex>
+      <Flex>
         <Spacer />
         <FilterBar gameIds={gameIds} onFilterChange={handleFilterChange} />
       </Flex>
