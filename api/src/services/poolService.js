@@ -3,10 +3,16 @@ const pool = require("../../helpers/pgConnection");
 class PoolService {
   static async getAll() {
     const query = `
-      SELECT * 
-      FROM pools 
-      INNER JOIN categories 
-      ON pools.categoryId = categories.id;
+    SELECT pools.*, 
+    categories.name AS categoryName,
+    categories.short_description,
+    rarities.name AS rarityName,
+    rarities.id AS rarityId
+    FROM pools 
+    INNER JOIN categories 
+    ON pools.categoryId = categories.id
+    INNER JOIN rarities
+    ON categories.rarityId = rarities.id;
     `;
 
     try {
