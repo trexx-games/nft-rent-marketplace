@@ -4,7 +4,7 @@ class ItemController {
   static async createItem(req, res) {
     const { nftId, categoryId, owner } = req.body;
     
-    await ItemService.createItem({ accessToken, nftId, categoryId, owner });
+    await ItemService.createItem({ nftId, categoryId, owner });
 
     res.status(201).json({ message: "Item created successfully" });
   }
@@ -12,7 +12,7 @@ class ItemController {
   static async addToPool(req, res) {
     const nftId = req.params.nftId;
     
-    await ItemService.addToPool({ accessToken, nftId });
+    await ItemService.addToPool({ nftId });
 
     res.status(201).json({ message: "Item added to pool successfully" });
   }
@@ -21,7 +21,6 @@ class ItemController {
     const owner = req.params.owner;
     
     const itemsInPool = await ItemService.getItemsInPoolByUser({
-      accessToken,
       owner,
     });
 
@@ -32,7 +31,6 @@ class ItemController {
     const owner = req.params.owner;
     
     const itemsRented = await ItemService.getItemsRentedByUser({
-      accessToken,
       owner,
     });
 
@@ -42,7 +40,7 @@ class ItemController {
   static async getItemsOwnedByUser(req, res) {
     const owner = req.params.owner;
     
-    const itemsOwned = await ItemService.getByOwner({ accessToken, owner });
+    const itemsOwned = await ItemService.getByOwner({ owner });
 
     res.status(200).json({ itemsOwned });
   }
