@@ -10,6 +10,4 @@ module.exports = {
   vrfKeyHash: process.env.VRF_KEY_HASH ?? "",
   vrfCoordinatorContractAddress: process.env.VRF_COORDINATOR_CONTRACT ?? "",
   vrfSubId: Number(process.env.VRF_SUB_ID) ?? 0,
-  cfSubId: Number(process.env.CF_SUB_ID) ?? 0,
-  cfOracleAddress: process.env.CF_ORACLE_ADDRESS ?? ""
 }
