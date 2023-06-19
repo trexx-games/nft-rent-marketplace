@@ -4,4 +4,4 @@ export const PoolRarity = {
   CommonCS: 3,
   RareCS: 4,
   EpicCS: 5,
-}
+};
