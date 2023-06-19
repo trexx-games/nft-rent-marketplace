@@ -27,7 +27,8 @@ import { darken } from '@chakra-ui/theme-tools';
 import React, { useState, useEffect } from 'react';
 import {
   NFT_RENT_MARKETPLACE_ADDRESS,
-  NFT_ADDRESS,
+  NFT_BBG_ADDRESS,
+  NFT_CS_ADDRESS,
 } from '../../const/addresses';
 import NFTCard from '../NFT/NFTCard';
 import { ethers } from 'ethers';
@@ -55,7 +56,7 @@ export default function PoolOrder({ pool }) {
   const handleRentDaysChange = async (value) => {
     setRentDays(value);
     const contract = await sdk.getContract(NFT_RENT_MARKETPLACE_ADDRESS);
-    const price = await contract.call('getRentQuote', [pool.CATEGORYID, value]);
+    const price = await contract.call('getRentQuote', [pool.categoryid, value]);
     if (price?.rentQuoteDollar._hex) {
       const poolUSDPriceBigNumber = ethers.BigNumber.from(
         price.rentQuoteDollar._hex,
@@ -78,11 +79,13 @@ export default function PoolOrder({ pool }) {
       const contract = await sdk.getContract(NFT_RENT_MARKETPLACE_ADDRESS);
       const result = await contract.call(
         'startRent',
-        [pool.CATEGORYID, Number(rentDays)],
+        [pool.categoryid, Number(rentDays)],
         { value: poolMATICPrice },
       );
-      const nftId = result.receipt.events[1].args.itemNftId.toNumber();
-      const nft = await getNft(nftId);
+      console.log(result);
+      const nftId = result.receipt.events[0].args.itemNftId.toNumber();
+      console.log(pool)
+      const nft = await getNft(nftId, pool.gameid);  
       setNft(nft);
       onOpen();
     } catch (error) {
@@ -99,35 +102,42 @@ export default function PoolOrder({ pool }) {
     }
   };
 
-  const getNft = async (nftId) => {
-    const contract = await sdk.getContract(NFT_ADDRESS);
+  const getNft = async (nftId, gameId) => {
+    const contractAddresses = {
+      1: NFT_BBG_ADDRESS,
+      2: NFT_CS_ADDRESS,
+    };
+  
+    const contractAddress = contractAddresses[gameId];
+    const contract = await sdk.getContract(contractAddress);
     const nft = await contract.erc721.get(nftId);
     return nft;
   };
+
 
   return (
     <VStack spacing={6} align="stretch" padding={'10px'}>
       <Box marginTop={'10%'}>
         <Heading fontFamily={'Bayon'} size="xl" mt={2}>
-          {pool.CATEGORYTYPE} Pool
+          {pool.categoyname} Pool
         </Heading>
         <Text
           fontSize={20}
           fontFamily={'Big Shoulders Text'}
           fontWeight={'bold'}
         >
-          Rarity: {pool.RARITY}
+          Rarity: {pool.rarityname}
         </Text>
       </Box>
       <Box>
-        <Image src={pool.IMAGEURL} alt={pool.NAME} />
+        <Image src={pool.imageurl} alt={pool.categoryname} />
       </Box>
       <Box>
         <Text fontSize={20} fontFamily={'Bayon'} fontWeight={'bold'}>
           Description:
         </Text>
         <Text mb={2} fontFamily={'Big Shoulders Text'}>
-          {pool.SHORT_DESCRIPTION}
+          {pool.short_description}
         </Text>
         <Box>
           <Flex direction="row" gap={10} justify="flex-start" mb={3}>
@@ -163,7 +173,7 @@ export default function PoolOrder({ pool }) {
                 USD {Number(poolUSDPrice).toFixed(2)}
               </Text>
               <Text mt={2} fontSize={20} fontFamily={'Big Shoulders Text'}>
-                MATIC {poolMATICFormatedPrice}
+                AVAX {poolMATICFormatedPrice}
               </Text>
             </Flex>
           </Box>

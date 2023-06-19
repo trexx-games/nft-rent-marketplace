@@ -58,9 +58,10 @@ export function Navbar() {
             src="/logo_bbg.png"
             obj
             alt="Logo"
-            boxSize="100px"
+            boxSize="80px"
             mr="20px"
             width={'100%'}
+            minWidth={'80px'}
           />
         </Link>
         <Flex direction={'row'}>
@@ -116,20 +117,6 @@ export function Navbar() {
             }}
           >
             <Text>Inventory</Text>
-          </Link>
-          <Link
-            as={NextLink}
-            href={'https://boomboogers.com.br/'}
-            mx={2.5}
-            fontFamily={'Bayon'}
-            fontSize={'22'}
-            _hover={{
-              color: '#FBAA0B',
-              textDecoration: 'underline',
-              transition: 'color 0.2s',
-            }}
-          >
-            <Text>Discover BBG</Text>
           </Link>
         </Flex>
         <Flex direction={'row'} alignItems={'center'}>
