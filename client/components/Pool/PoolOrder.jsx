@@ -82,10 +82,8 @@ export default function PoolOrder({ pool }) {
         [pool.categoryid, Number(rentDays)],
         { value: poolMATICPrice },
       );
-      console.log(result);
       const nftId = result.receipt.events[0].args.itemNftId.toNumber();
-      console.log(pool)
-      const nft = await getNft(nftId, pool.gameid);  
+      const nft = await getNft(nftId, pool.gameid);
       setNft(nft);
       onOpen();
     } catch (error) {
@@ -107,13 +105,12 @@ export default function PoolOrder({ pool }) {
       1: NFT_BBG_ADDRESS,
       2: NFT_CS_ADDRESS,
     };
-  
+
     const contractAddress = contractAddresses[gameId];
     const contract = await sdk.getContract(contractAddress);
     const nft = await contract.erc721.get(nftId);
     return nft;
   };
-
 
   return (
     <VStack spacing={6} align="stretch" padding={'10px'}>

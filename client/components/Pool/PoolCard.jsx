@@ -14,19 +14,19 @@ import { GiVisoredHelm } from 'react-icons/gi';
 
 export default function PoolCard({ pool }) {
   const rarityColors = {
-    1: "#523b26",
-    2: "#265eed",
-    3: "#523b26",
-    5: "#f2521e",
-    6: "#2a8303",
-    4: "#3198d6",
+    1: '#523b26',
+    2: '#265eed',
+    3: '#523b26',
+    5: '#f2521e',
+    6: '#2a8303',
+    4: '#3198d6',
   };
   const boxShadowColor = useColorModeValue(
     'rgba(0, 0, 0, 0.5)',
     'rgba(255, 255, 255, 0.5)',
   );
   const hoverTransition = 'all 0.25s ease-in-out';
-  
+
   const icons = {
     1: LuSword,
     2: LuSword,
@@ -34,14 +34,14 @@ export default function PoolCard({ pool }) {
     4: GiVisoredHelm,
     5: GiVisoredHelm,
     6: GiVisoredHelm,
-  }
+  };
 
-  const icon = icons[pool.categoryid]
+  const icon = icons[pool.categoryid];
 
   const background = rarityColors[pool.categoryid] || rgb(0, 0, 0);
   const gameLogos = {
-    1: "logos/logo_bbg.png",
-    2: "logos/logo_cursed_stone.png",
+    1: 'logos/logo_bbg.png',
+    2: 'logos/logo_cursed_stone.png',
   };
   const gameLogo = gameLogos[pool.gameid];
   return (
@@ -65,7 +65,7 @@ export default function PoolCard({ pool }) {
           alt={pool.categoryid}
           width={'100%'}
           transition={hoverTransition}
-        />        
+        />
         <Image
           src={gameLogo}
           alt="game logo"
