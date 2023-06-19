@@ -97,20 +97,6 @@ export function Navbar() {
         </Flex>
         <Flex direction={'row'} alignItems={'center'}>
           <ConnectWallet style={{ fontFamily: 'Bayon' }} />
-          {address && (
-            <Link as={NextLink} href={`/profile/${address}`}>
-              <Icon
-                as={GiLockedChest}
-                boxSize={8}
-                ml={'35px'}
-                color={activeTab === '/profile' ? '#FBAA0B' : undefined}
-                textDecoration={
-                  activeTab === '/pools' ? 'underline' : undefined
-                }
-                onClick={() => setActiveTab('/profile')}
-              />
-            </Link>
-          )}
         </Flex>
       </Flex>
     </Box>
