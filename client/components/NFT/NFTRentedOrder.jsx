@@ -15,13 +15,12 @@ import { useSigner } from '@thirdweb-dev/react';
 import { ThirdwebSDK } from '@thirdweb-dev/sdk';
 import {
   NFT_RENT_MARKETPLACE_ADDRESS,
-  NFT_RENT_MARKETPLACE_ABI,
   NFT_ADDRESS,
 } from '../../const/addresses';
 import React, { useState } from 'react';
 import { darken } from '@chakra-ui/theme-tools';
 
-export default function NFTRentedOrder({ nft, rentId }) {
+export default function NFTRentedOrder({ nft, rentId, nftAddress }) {
   const toast = useToast();
   const signer = useSigner();
   let sdk;
@@ -33,9 +32,8 @@ export default function NFTRentedOrder({ nft, rentId }) {
   const finishRent = async () => {
     try {
       setIsLoading(true);
-      // const contract = await sdk.getContract(NFT_RENT_MARKETPLACE_ADDRESS, NFT_RENT_MARKETPLACE_ABI)
       const contract = await sdk.getContract(NFT_RENT_MARKETPLACE_ADDRESS);
-      await contract.call('finishRent', [rentId]);
+      await contract.call('finishRent', [rentId, nftAddress]);
       toast({
         title: 'Success!',
         description: 'Your rent is finished.',
@@ -149,7 +147,7 @@ export default function NFTRentedOrder({ nft, rentId }) {
 
 export const getStaticProps = async (context) => {
   const tokenId = context.params?.tokenId;
-  const sdk = new ThirdwebSDK('mumbai');
+  const sdk = new ThirdwebSDK('avalanche-fuji');
   const contract = await sdk.getContract(NFT_ADDRESS);
   const nft = await contract.erc721.get(tokenId);
   return {
@@ -161,7 +159,7 @@ export const getStaticProps = async (context) => {
 };
 
 export const getStaticPaths = async () => {
-  const sdk = new ThirdwebSDK('mumbai');
+  const sdk = new ThirdwebSDK('avalanche-fuji');
   const contract = await sdk.getContract(NFT_ADDRESS, 'nft-collection');
   const nfts = await contract.getAll();
   const paths = nfts.map((nft) => {

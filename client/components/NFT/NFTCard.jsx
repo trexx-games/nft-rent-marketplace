@@ -1,15 +1,15 @@
 import React from 'react';
 import { ThirdwebNftMedia } from '@thirdweb-dev/react';
 import { Box, Flex, Text, useColorModeValue } from '@chakra-ui/react';
-import { ItemCategory } from '../../const/item_categories'
+import { ItemCategory } from '../../const/item_categories';
 export default function NFTCard({ nft }) {
   const boxShadowColor = useColorModeValue(
     'rgba(0, 0, 0, 0.5)',
     'rgba(255, 255, 255, 0.5)',
   );
-  const categoryAttribute = Object.entries(nft?.metadata?.attributes || {}).find(
-    ([_, value]) => value.trait_type === 'categoryId'
-  );
+  const categoryAttribute = Object.entries(
+    nft?.metadata?.attributes || {},
+  ).find(([_, value]) => value.trait_type === 'categoryId');
   const categoryId = categoryAttribute ? categoryAttribute[1].value : null;
   const background =
     categoryId === ItemCategory.Rare

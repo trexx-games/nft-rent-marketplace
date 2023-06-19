@@ -10,31 +10,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract NFTRentMarketplaceV2 is VRFConsumerBaseV2, ConfirmedOwner, IERC721Receiver {
-  //PriceFeed
-  AggregatorV3Interface internal dataFeed;
-
-  //VRF Settings
-  VRFCoordinatorV2Interface public vrfCoordinator;
-  uint64 private vrfSubscriptionId;
-  bytes32 internal vrfkeyHash;
-  uint32 private vrfCallbackGasLimit = 500000;
-  uint16 private vrfRequestConfirmations = 3;
-  uint32 private vrfNumWordsRequested = 10;
-
-  //VRF Events
-  event vrfRequestSent(uint256 requestId, uint32 numWords);
-  event vrfRequestFulfilled(uint256 requestId);
-
-  //VRF Data
-  struct vrfRequestStatus {
-    bool exists;
-    bool fulfilled;
-    uint256 requestId;
-  }
-  uint256[] public randomNumberList;
-  mapping(uint256 => vrfRequestStatus) public randomNumberRequests;
-
+contract NFTRentMarketplaceV2La is IERC721Receiver, ConfirmedOwner {
   //Marketplace
   using Counters for Counters.Counter;
   using SafeMath for uint256;
@@ -109,17 +85,7 @@ contract NFTRentMarketplaceV2 is VRFConsumerBaseV2, ConfirmedOwner, IERC721Recei
   event ItemRemovedFromPool(uint256 indexed itemId, uint256 poolId);
   event ItemCreated(uint256 indexed nftId, uint256 categoryId, address owner);
 
-  constructor(
-    uint64 _vrfSubscriptionId,
-    address _vrfCoordinator,
-    bytes32 _vrfkeyHash,
-    address _dataFeed
-  ) VRFConsumerBaseV2(_vrfCoordinator) ConfirmedOwner(msg.sender) {
-    vrfCoordinator = VRFCoordinatorV2Interface(_vrfCoordinator);
-    vrfSubscriptionId = _vrfSubscriptionId;
-    vrfkeyHash = _vrfkeyHash;
-    dataFeed = AggregatorV3Interface(_dataFeed);
-  }
+  constructor() ConfirmedOwner(msg.sender) {}
 
   modifier onlyNftOwner(uint256 _itemNftId, address _nftContractAddress) {
     ERC721 erc721 = ERC721(_nftContractAddress);
@@ -144,33 +110,6 @@ contract NFTRentMarketplaceV2 is VRFConsumerBaseV2, ConfirmedOwner, IERC721Recei
       "Only the Rentee or the contract owner can perform this operation"
     );
     _;
-  }
-
-  function getLatestPrice() public view returns (int, uint8) {
-    (, int256 answer, , , ) = dataFeed.latestRoundData();
-    uint8 decimal = dataFeed.decimals();
-    return (answer, decimal);
-  }
-
-  function fillRandomNumberList() public {
-    uint256 requestId = vrfCoordinator.requestRandomWords(
-      vrfkeyHash,
-      vrfSubscriptionId,
-      vrfRequestConfirmations,
-      vrfCallbackGasLimit,
-      vrfNumWordsRequested
-    );
-    randomNumberRequests[requestId] = vrfRequestStatus({exists: true, fulfilled: false, requestId: requestId});
-    emit vrfRequestSent(requestId, vrfNumWordsRequested);
-  }
-
-  function fulfillRandomWords(uint256 _requestId, uint256[] memory _randomWords) internal override {
-    require(randomNumberRequests[_requestId].exists, "request not found");
-    for (uint256 i = 0; i < _randomWords.length; i++) {
-      randomNumberList.push(_randomWords[i]);
-    }
-    randomNumberRequests[_requestId].fulfilled = true;
-    emit vrfRequestFulfilled(_requestId);
   }
 
   function createPool(uint256 _categoryId, uint256 _basePrice) public onlyOwner {
@@ -233,20 +172,15 @@ contract NFTRentMarketplaceV2 is VRFConsumerBaseV2, ConfirmedOwner, IERC721Recei
     return pools[categoryId];
   }
 
-  function getRentQuote(
-    uint256 categoryId,
-    uint256 rentTime
-  ) public view returns (uint256 rentQuoteMatic, uint256 rentQuoteDollar) {
+  function getRentQuote(uint256 categoryId, uint256 rentTime) public view returns (uint256 rentQuoteMatic) {
     Pool storage pool = pools[categoryId];
     require(pool.isActive, "Pool with the given category ID does not exist or is not active");
 
     uint256 basePrice = pool.basePrice;
 
     rentQuoteMatic = calculateRentPrice(basePrice, rentTime);
-    (int answer, uint8 decimal) = getLatestPrice();
-    rentQuoteDollar = (uint256(answer) * rentQuoteMatic) / (10 ** decimal);
 
-    return (rentQuoteMatic, rentQuoteDollar);
+    return (rentQuoteMatic);
   }
 
   function getItemByNftId(uint256 _nftId, address _nftContractAddress) public view returns (Item memory) {
@@ -307,7 +241,6 @@ contract NFTRentMarketplaceV2 is VRFConsumerBaseV2, ConfirmedOwner, IERC721Recei
     Pool storage pool = pools[_categoryId];
     require(pool.isActive, "Pool with the given category ID does not exist or is not active");
     require(pool.availableItems.length > 0, "Pool with the given category ID has no available items to rent");
-    require(randomNumberList.length > 0, "There is no random number available to select item");
 
     //check if the pool is made by items of the sender
     bool allItemsSameOwner = checkAllItemsSameOwner(msg.sender, _categoryId);
@@ -391,13 +324,9 @@ contract NFTRentMarketplaceV2 is VRFConsumerBaseV2, ConfirmedOwner, IERC721Recei
     return (item, itemRandomIndex, randomNumber);
   }
 
-  function getRandomNumber() private returns (uint256 randomNumber) {
-    randomNumber = randomNumberList[randomNumberList.length - 1];
-    randomNumberList.pop();
-    if (randomNumberList.length < 5) {
-      fillRandomNumberList();
-    }
-    return randomNumber;
+  function getRandomNumber() private view returns (uint256) {
+    uint256 random = uint256(keccak256(abi.encodePacked(block.timestamp, msg.sender)));
+    return random;
   }
 
   function updatePoolAfterRent(Pool storage pool, uint256 selectedItemId, uint256 index) private {

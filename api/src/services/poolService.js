@@ -1,40 +1,59 @@
-const SxTApi = require('./sxtApi');
-const env = require('../../config/env')
+const pool = require("../../helpers/pgConnection");
 
 class PoolService {
-  static async getAll({ accessToken }) {
-    const resourceId = `${env.sxtSchema}.POOLS`
-    const sqlText = `SELECT * FROM ${env.sxtSchema}.POOLS INNER JOIN ${env.sxtSchema}.CATEGORIES ON ${env.sxtSchema}.POOLS.CATEGORYID = ${env.sxtSchema}.CATEGORIES.ID;`;
-    const response = await SxTApi.dql({
-      resourceId,
-      sqlText,
-      accessToken,
-    });
-    return response;
+  static async getAll() {
+    const query = `
+    SELECT pools.*, 
+    categories.name AS categoryName,
+    categories.short_description,
+    rarities.name AS rarityName,
+    rarities.id AS rarityId
+    FROM pools 
+    INNER JOIN categories 
+    ON pools.categoryId = categories.id
+    INNER JOIN rarities
+    ON categories.rarityId = rarities.id;
+    `;
+
+    try {
+      const result = await pool.query(query);
+      return result.rows;
+    } catch (error) {
+      console.error("Error getting all pools: ", error.stack);
+    }
   }
 
-  static async getById({ accessToken }) {
-    const resourceId = `${env.sxtSchema}.POOLS`
-    const sqlText = `SELECT * FROM ${env.sxtSchema}.POOLS INNER JOIN ${env.sxtSchema}.CATEGORIES ON ${env.sxtSchema}.POOLS.CATEGORYID = ${env.sxtSchema}.CATEGORIES.ID;`;
-    const response = await SxTApi.dql({
-      resourceId,
-      sqlText,
-      accessToken,
-    });
-    return response[0];
+  static async getById({ poolId }) {
+    const query = `
+    SELECT * 
+    FROM pools 
+    INNER JOIN categories 
+    ON pools.categoryId = categories.id
+    WHERE pools.categoryId = $1;
+  `;
+
+    try {
+      const result = await pool.query(query, [poolId]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error getting pool by id: ", error.stack);
+    }
   }
 
-
-  static async createPool({ accessToken, poolId, basePrice }) {
-    const resourceId = `${env.sxtSchema}.POOLS`
-    const sqlText = `INSERT INTO ${env.sxtSchema}.POOLS (categoryId, isActive, basePrice, ImageUrl) VALUES (${poolId}, true, ${basePrice}, 'https://nft-rent-marketplace.s3.us-east-2.amazonaws.com/categories/${poolId}.png');`;
-    const response = await SxTApi.dml({
-      resourceId,
-      sqlText,
-      accessToken,
-    });
-
-    return response[0];
+  static async createPool({ poolId, basePrice, gameId }) {
+    const imageUrl = `https://nft-rent-marketplace.s3.us-east-2.amazonaws.com/categories/${poolId}.png`
+    const query = `
+    INSERT INTO pools (categoryId, isActive, basePrice, imageUrl, gameId) 
+    VALUES ($1, true, $2, '${imageUrl}', $3)
+    RETURNING *;
+  `;
+    console.log("query: ", query)
+    try {
+      const result = await pool.query(query, [poolId, basePrice, gameId]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error creating pool: ", error.stack);
+    }
   }
 }
 
