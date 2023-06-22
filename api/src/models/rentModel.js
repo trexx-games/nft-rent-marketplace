@@ -5,10 +5,10 @@ class RentModel {
     this.pool = pool;
   }
 
-  async createRent({ id, initDate, expirationDate, priceUSD, priceBlockchain, ownerAddress, renteeAddress, poolId, itemId }) {
+  async createRent({ id, initDate, expirationDate, priceBlockchain, ownerAddress, renteeAddress, poolId, itemId }) {
     const query = `
-      INSERT INTO rents (id, init_date, expiration_date, price_usd, price_blockchain, owner_address, rentee_address, pool_id, item_id, status)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, ${RENT_STATUS_ENUM.ACTIVE})
+      INSERT INTO rents (id, init_date, expiration_date, price_blockchain, owner_address, rentee_address, pool_id, item_id, status)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, ${RENT_STATUS_ENUM.ACTIVE})
       RETURNING *;
     `;
 
