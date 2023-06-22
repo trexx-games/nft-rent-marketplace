@@ -1,142 +1,44 @@
-const pool = require("../../helpers/pgConnection");
+const ItemModel = require('../models/itemModel');
 
 class ItemService {
-  static async getByOwner({ owner }) {
-    const query = `
-      SELECT * 
-      FROM items 
-      WHERE items.owner = $1;
-    `;
-
-    try {
-      const result = await pool.query(query, [owner]);
-      return result.rows;
-    } catch (error) {
-      console.error("Error getting items by owner: ", error.stack);
-    }
+  constructor() {
+    this.itemModel = new ItemModel();
   }
 
-  static async getIdleByOwner({ owner }) {
-    const query = `
-    SELECT * 
-    FROM items 
-    WHERE items.owner = $1 AND items.isInPool = false;
-  `;
-
-    try {
-      const result = await pool.query(query, [owner]);
-      return result.rows;
-    } catch (error) {
-      console.error("Error getting idle items by owner: ", error.stack);
-    }
+  async getItemByNftId(nftId) {
+    return await this.itemModel.getItemByNftId({ nftId });
   }
 
-  static async createItem({ nftId, categoryId, owner }) {
-    const query = `
-    INSERT INTO items (nftId, categoryId, owner, rentee, isInPool) 
-    VALUES ($1, $2, $3, NULL, false)
-    RETURNING *;
-  `;
-
-    try {
-      const result = await pool.query(query, [nftId, categoryId, owner]);
-      return result.rows[0];
-    } catch (error) {
-      console.error("Error creating item: ", error.stack);
-    }
+  async createItem(itemData) {
+    return await this.itemModel.createItem(itemData);
   }
 
-  static async getItemByNftId({ nftId }) {
-    const query = `
-    SELECT * 
-    FROM items 
-    WHERE nftId = $1;
-  `;
-
-    try {
-      const result = await pool.query(query, [nftId]);
-      return result.rows;
-    } catch (error) {
-      console.error("Error getting item by NFT ID: ", error.stack);
-    }
+  async getByOwner(owner) {
+    return await this.itemModel.getByOwner({ owner });
   }
 
-  static async rentItem({ nftId, rentee }) {
-    const query = `
-    UPDATE items 
-    SET rentee = $1 
-    WHERE nftId = $2
-    RETURNING *;
-  `;
-
-    try {
-      const result = await pool.query(query, [rentee, nftId]);
-      return result.rows[0];
-    } catch (error) {
-      console.error("Error renting item: ", error.stack);
-    }
+  async getIdleByOwner(owner) {
+    return await this.itemModel.getIdleByOwner({ owner });
   }
 
-  static async finishRent({ nftId }) {
-    const query = `
-    UPDATE items 
-    SET rentee = NULL 
-    WHERE nftId = $1
-    RETURNING *;
-  `;
-
-    try {
-      const result = await pool.query(query, [nftId]);
-      return result.rows[0];
-    } catch (error) {
-      console.error("Error finishing rent: ", error.stack);
-    }
+  async rentItem(itemId, rentee) {
+    return await this.itemModel.rentItem({ itemId, rentee });
   }
 
-  static async addToPool({ nftId }) {
-    const query = `
-    UPDATE items 
-    SET isInPool = true 
-    WHERE nftId = $1
-    RETURNING *;
-  `;
-
-    try {
-      const result = await pool.query(query, [nftId]);
-      return result.rows[0];
-    } catch (error) {
-      console.error("Error adding item to pool: ", error.stack);
-    }
+  async finishRent(itemId) {
+    return await this.itemModel.finishRent({ itemId });
   }
 
-  static async getItemsInPoolByUser({ owner }) {
-    const query = `
-    SELECT * 
-    FROM items 
-    WHERE owner = $1 AND isInPool = true AND rentee IS NULL;
-  `;
-
-    try {
-      const result = await pool.query(query, [owner]);
-      return result.rows;
-    } catch (error) {
-      console.error("Error getting items in pool by user: ", error.stack);
-    }
+  async addToPool(itemId) {
+    return await this.itemModel.addToPool({ itemId });
   }
 
-  static async getItemsRentedByUser({ owner }) {
-    const query = `
-    SELECT * 
-    FROM items 
-    WHERE owner = $1 AND isInPool = true AND rentee IS NOT NULL;
-  `;
+  async getItemsInPoolByUser(owner) {
+    return await this.itemModel.getItemsInPoolByUser({ owner });
+  }
 
-    try {
-      const result = await pool.query(query, [owner]);
-      return result.rows;
-    } catch (error) {
-      console.error("Error getting items rented by user: ", error.stack);
-    }
+  async getItemsRentedByUser(owner) {
+    return await this.itemModel.getItemsRentedByUser({ owner });
   }
 }
 
