@@ -60,7 +60,7 @@ class RentService {
     try {
       await pool.query(query, [finishDate, rentId]);
       const rent = await RentService.getRentById(rentId);
-      const rentedNftId = rent.nft_id;
+      const rentedNftId = rent.nftId;
       await ItemService.finishRent({ nftId: rentedNftId });
     } catch (error) {
       console.error("Error finishing rent: ", error.stack);
