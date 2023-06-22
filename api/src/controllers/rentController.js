@@ -9,7 +9,7 @@ class RentController {
 
   async createRent(req, res) {
     const { rentData } = req.body;
-    const requiredFields = ['id', 'initDate', 'expirationDate', 'priceUSD', 'priceBlockchain', 'ownerAddress', 'renteeAddress', 'poolId', 'itemId'];
+    const requiredFields = ['id', 'initDate', 'expirationDate', 'priceBlockchain', 'ownerAddress', 'renteeAddress', 'poolId', 'itemId'];
     for (const field of requiredFields) {
       if (!rentData[field]) {
         return res.status(400).json({ error: `Field ${field} is required.` });
