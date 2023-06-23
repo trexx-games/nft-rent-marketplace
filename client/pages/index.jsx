@@ -7,6 +7,7 @@ import {
 } from '@chakra-ui/react';
 import { Fade } from 'react-awesome-reveal';
 import Footer from '../components/Footer';
+import FAQ from '../components/FAQ';
 
 export default function Home() {
   return (
@@ -60,6 +61,7 @@ export default function Home() {
           </Box>
         </Flex>
       </VStack>
+      <FAQ />
       <Footer />
     </Box>
   );
