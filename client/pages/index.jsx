@@ -24,7 +24,7 @@ export default function Home() {
           </Text>
         </Fade>
       </VStack>
-      <VStack marginTop={'80px'} minH={'40vh'}>
+      <VStack marginTop={'80px'} minH={'50vh'}>
         <Flex direction={['column', 'row']} justify='center' align='center' p={10} color='white'>
           <Box flex="1" p={5}>
             <Image
@@ -45,7 +45,7 @@ export default function Home() {
           </Box>
         </Flex>
       </VStack>
-      <VStack minH={'40vh'}>
+      <VStack minH={'50vh'} marginBottom={'80px'}>
         <Flex direction={['column', 'row']} justify='center' align='center' p={10} color='white'>
           <Box flex="1" p={5}>
             <Text fontSize='4xl' fontFamily={'Dela Gothic One'} fontWeight='bold' color={'black'}>
