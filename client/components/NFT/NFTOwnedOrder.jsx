@@ -75,7 +75,7 @@ export default function NFTOwnedOrder({ nft }) {
   return (
     <VStack align="stretch" padding={'10px'} columns={2} spacing={6}>
       <Box marginTop={'10%'}>
-        <Heading textAlign={'center'} fontFamily={'Bayon'} size="xl" mt={2}>
+        <Heading textAlign={'center'} fontFamily={'Manrope'} size="xl" mt={2}>
           {nft.metadata.name}
         </Heading>
       </Box>
@@ -89,14 +89,14 @@ export default function NFTOwnedOrder({ nft }) {
         </Box>
         <Button
           _hover={{
-            bg: darken('#FBAA0B', 15),
+            bg: darken('#66E383', 15),
             transition: 'background-color 0.2s',
           }}
           _active={{
             transform: 'scale(0.98)',
           }}
-          backgroundColor={'#FBAA0B'}
-          fontFamily={'Bayon'}
+          backgroundColor={'#66E383'}
+          fontFamily={'Manrope'}
           fontSize={20}
           letterSpacing={0.5}
           isLoading={isLoading}
@@ -108,17 +108,17 @@ export default function NFTOwnedOrder({ nft }) {
           Add Item to Pool
         </Button>
         <Box>
-          <Text fontFamily={'bayon'} fontSize={20} fontWeight={'bold'}>
+          <Text fontFamily={'Manrope'} fontSize={20} fontWeight={'bold'}>
             Description:
           </Text>
-          <Text fontFamily={'big shoulders text'} mb={1} fontSize={16}>
+          <Text fontFamily={'Manrope'} mb={1} fontSize={16}>
             {nft.metadata.description}
           </Text>
         </Box>
         <Box>
           <Text
             marginBottom={4}
-            fontFamily={'bayon'}
+            fontFamily={'Manrope'}
             fontSize={20}
             fontWeight={'bold'}
           >
@@ -139,14 +139,14 @@ export default function NFTOwnedOrder({ nft }) {
                   <Text
                     letterSpacing={0.3}
                     fontSize={'small'}
-                    fontFamily={'Bayon'}
+                    fontFamily={'Manrope'}
                     fontWeight={'bold'}
                     textTransform={'capitalize'}
                   >
                     {value.trait_type}
                   </Text>
                   <Text
-                    fontFamily={'big shoulders text'}
+                    fontFamily={'Dela Gothic One'}
                     fontSize={'medium'}
                     textTransform={'uppercase'}
                   >

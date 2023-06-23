@@ -43,7 +43,7 @@ export default function NFTGrid({ isLoading, data }) {
             </div>
           ))
         ) : (
-          <Text fontSize={24} fontFamily={'Big Shoulders Text'}>
+          <Text fontSize={24} fontFamily={'Manrope'}>
             0 items found
           </Text>
         )}

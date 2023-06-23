@@ -94,7 +94,7 @@ export default function Inventory() {
         <AccordionItem>
           <AccordionButton
             _hover={{
-              bg: '#FBAA0B',
+              bg: '#66E383',
               transition: 'background-color 0.2s',
               color: 'white',
             }}
@@ -102,7 +102,7 @@ export default function Inventory() {
           >
             <Flex alignItems={'center'} textAlign="left">
               <Box minW={280}>
-                <Heading fontSize={40} fontFamily={'Bayon'}>
+                <Heading fontSize={40} fontFamily={'Manrope'}>
                   Your Owned Items
                 </Heading>
               </Box>
@@ -115,13 +115,13 @@ export default function Inventory() {
             {isLoading ? (
               <></>
             ) : ownedNfts?.length > 0 ? (
-              <Text fontSize={25} fontFamily={'Big Shoulders Text'}>
+              <Text fontSize={25} fontFamily={'Manrope'}>
                 These are the game items you own. Put them in a pool and start
                 generating income!
               </Text>
             ) : (
               <div>
-                <Text fontSize={25} fontFamily={'Big Shoulders Text'}>
+                <Text fontSize={25} fontFamily={'Manrope'}>
                   You do not have any Items! Check the available Pools and rent
                   some items to play!
                 </Text>
@@ -144,7 +144,7 @@ export default function Inventory() {
         <AccordionItem>
           <AccordionButton
             _hover={{
-              bg: '#FBAA0B',
+              bg: '#66E383',
               transition: 'background-color 0.2s',
               color: 'white',
             }}
@@ -152,7 +152,7 @@ export default function Inventory() {
           >
             <Flex alignItems={'center'} textAlign="left">
               <Box minW={280}>
-                <Heading fontSize={40} fontFamily={'Bayon'}>
+                <Heading fontSize={40} fontFamily={'Manrope'}>
                   Your Rented Items
                 </Heading>
               </Box>
@@ -163,7 +163,7 @@ export default function Inventory() {
           </AccordionButton>
           <AccordionPanel paddingLeft={10} pb={4}>
             {rentedItems?.rents.length > 0 ? (
-              <Text fontSize={25} fontFamily={'Big Shoulders Text'}>
+              <Text fontSize={25} fontFamily={'Manrope'}>
                 These are the items you are currently renting from other players
                 for use in the game.
               </Text>
@@ -192,7 +192,7 @@ export default function Inventory() {
                   />
                 ))
               ) : (
-                <Text fontSize={24} fontFamily={'Big Shoulders Text'}>
+                <Text fontSize={24} fontFamily={'Manrope'}>
                   0 items found
                 </Text>
               )}
