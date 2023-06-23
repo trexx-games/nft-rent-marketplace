@@ -35,11 +35,11 @@ export function Navbar() {
             mx={2.5}
             fontFamily={'Manrope'}
             fontSize={'22'}
-            color={activeTab === '/' ? '#FBAA0B' : undefined}
+            color={activeTab === '/' ? '#66E383' : undefined}
             textDecoration={activeTab === '/' ? 'underline' : undefined}
             onClick={() => setActiveTab('/')}
             _hover={{
-              color: '#FBAA0B',
+              color: '#66E383',
               textDecoration: 'underline',
               transition: 'color 0.2s',
             }}
@@ -48,7 +48,7 @@ export function Navbar() {
           </Link>
           <Link
             as={NextLink}
-            color={activeTab === '/pools' ? '#FBAA0B' : undefined}
+            color={activeTab === '/pools' ? '#66E383' : undefined}
             textDecoration={activeTab === '/pools' ? 'underline' : undefined}
             onClick={() => setActiveTab('/pools')}
             href={'/pools'}
@@ -56,7 +56,7 @@ export function Navbar() {
             fontFamily={'Manrope'}
             fontSize={'22'}
             _hover={{
-              color: '#FBAA0B',
+              color: '#66E383',
               textDecoration: 'underline',
               transition: 'color 0.2s',
             }}
@@ -65,7 +65,7 @@ export function Navbar() {
           </Link>
           <Link
             as={NextLink}
-            color={activeTab === '/inventory' ? '#FBAA0B' : undefined}
+            color={activeTab === '/inventory' ? '#66E383' : undefined}
             textDecoration={
               activeTab === '/inventory' ? 'underline' : undefined
             }
@@ -75,7 +75,7 @@ export function Navbar() {
             fontFamily={'Manrope'}
             fontSize={'22'}
             _hover={{
-              color: '#FBAA0B',
+              color: '#66E383',
               textDecoration: 'underline',
               transition: 'color 0.2s',
             }}

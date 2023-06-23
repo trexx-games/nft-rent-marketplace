@@ -22,7 +22,7 @@ export default function FAQ() {
         <Accordion allowToggle >
           <AccordionItem>
             <AccordionButton _hover={{
-              bg: '#FBAA0B',
+              bg: '#66E383',
               transition: 'background-color 0.2s',
               color: 'white',
             }}
@@ -47,7 +47,7 @@ export default function FAQ() {
 
           <AccordionItem>
             <AccordionButton _hover={{
-              bg: '#FBAA0B',
+              bg: '#66E383',
               transition: 'background-color 0.2s',
               color: 'white',
             }}
@@ -72,7 +72,7 @@ export default function FAQ() {
 
           <AccordionItem>
             <AccordionButton _hover={{
-              bg: '#FBAA0B',
+              bg: '#66E383',
               transition: 'background-color 0.2s',
               color: 'white',
             }}
@@ -97,7 +97,7 @@ export default function FAQ() {
 
           <AccordionItem>
             <AccordionButton _hover={{
-              bg: '#FBAA0B',
+              bg: '#66E383',
               transition: 'background-color 0.2s',
               color: 'white',
             }}
