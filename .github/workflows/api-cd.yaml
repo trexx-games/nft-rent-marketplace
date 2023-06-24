@@ -2,7 +2,7 @@ name: CI/CD Pipeline for API
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
     paths:
     - 'api/**'
 
