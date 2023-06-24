@@ -1,4 +1,4 @@
-service: nft-rent-mktplace-api-v3
+service: nft-rent-mktplace-api
 
 provider:
   name: aws
