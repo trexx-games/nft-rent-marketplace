@@ -115,12 +115,12 @@ export default function PoolOrder({ pool }) {
   return (
     <VStack spacing={6} align="stretch" padding={'10px'}>
       <Box marginTop={'10%'}>
-        <Heading fontFamily={'Bayon'} size="xl" mt={2}>
+        <Heading fontFamily={'Manrope'} size="xl" mt={2}>
           {pool.categoyname} Pool
         </Heading>
         <Text
           fontSize={20}
-          fontFamily={'Big Shoulders Text'}
+          fontFamily={'Manrope'}
           fontWeight={'bold'}
         >
           Rarity: {pool.rarityname}
@@ -130,15 +130,15 @@ export default function PoolOrder({ pool }) {
         <Image src={pool.imageurl} alt={pool.categoryname} />
       </Box>
       <Box>
-        <Text fontSize={20} fontFamily={'Bayon'} fontWeight={'bold'}>
+        <Text fontSize={20} fontFamily={'Manrope'} fontWeight={'bold'}>
           Description:
         </Text>
-        <Text mb={2} fontFamily={'Big Shoulders Text'}>
+        <Text mb={2} fontFamily={'Manrope'}>
           {pool.short_description}
         </Text>
         <Box>
           <Flex direction="row" gap={10} justify="flex-start" mb={3}>
-            <Text fontSize={20} fontFamily={'Bayon'} fontWeight={'bold'} mt={2}>
+            <Text fontSize={20} fontFamily={'Manrope'} fontWeight={'bold'} mt={2}>
               Rent for (days):
             </Text>
             <NumberInput
@@ -160,16 +160,16 @@ export default function PoolOrder({ pool }) {
             <Flex direction="row" gap={8} justify="flex-start">
               <Text
                 fontSize={20}
-                fontFamily={'Bayon'}
+                fontFamily={'Manrope'}
                 fontWeight={'bold'}
                 mt={2}
               >
                 Price:
               </Text>
-              <Text mt={2} fontSize={20} fontFamily={'Big Shoulders Text'}>
+              <Text mt={2} fontSize={20} fontFamily={'Dela Gothic One'}>
                 USD {Number(poolUSDPrice).toFixed(2)}
               </Text>
-              <Text mt={2} fontSize={20} fontFamily={'Big Shoulders Text'}>
+              <Text mt={2} fontSize={20} fontFamily={'Dela Gothic One'}>
                 AVAX {poolMATICFormatedPrice}
               </Text>
             </Flex>
@@ -179,14 +179,14 @@ export default function PoolOrder({ pool }) {
       <Button
         letterSpacing={0.5}
         _hover={{
-          bg: darken('#FBAA0B', 15),
+          bg: darken('#66E383', 15),
           transition: 'background-color 0.2s',
         }}
         _active={{
           transform: 'scale(0.98)',
         }}
-        backgroundColor={'#FBAA0B'}
-        fontFamily={'Bayon'}
+        backgroundColor={'#66E383'}
+        fontFamily={'Manrope'}
         isLoading={isLoading}
         color={'white'}
         size="md"
@@ -203,7 +203,7 @@ export default function PoolOrder({ pool }) {
             <ModalHeader
               fontSize="xl"
               fontWeight="bold"
-              fontFamily={'Bayon'}
+              fontFamily={'Manrope'}
               mb={1}
             >
               Check your Rented Item, Play with it!

@@ -21,7 +21,7 @@ export default function NFTCard({ nft }) {
     nft?.metadata?.attributes || {},
   ).find(([_, value]) => value.trait_type === 'categoryId');
   const categoryId = categoryAttribute ? categoryAttribute[1].value : null;
-  const background = rarityColors[categoryId] || '#000000' ;
+  const background = rarityColors[categoryId] || '#000000';
   return (
     <Flex
       overflow={'hidden'}
@@ -44,10 +44,10 @@ export default function NFTCard({ nft }) {
       </Box>
       <Box textAlign={'center'} background={background} p={4}>
         <Text
-          fontSize="m"
+          fontSize="sm"
           color={'white'}
           fontWeight="bold"
-          fontFamily={'Bayon'}
+          fontFamily={'Manrope'}
           mb={1}
         >
           {nft.metadata.name}

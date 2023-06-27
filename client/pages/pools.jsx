@@ -23,7 +23,7 @@ const FilterBar = ({ gameIds, onFilterChange }) => {
   return (
     <Box w="30%" marginBottom="1em">
       <Flex alignItems="center" spacing={3}>
-        <Text minWidth={150} fontSize={22} fontFamily={'Big Shoulders Text'}>
+        <Text minWidth={150} fontSize={22} fontFamily={'Manrope'}>
           {' '}
           Filter by game{' '}
         </Text>

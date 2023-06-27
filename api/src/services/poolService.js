@@ -1,59 +1,20 @@
-const pool = require("../../helpers/pgConnection");
+const PoolModel = require("../models/poolModel");
 
 class PoolService {
-  static async getAll() {
-    const query = `
-    SELECT pools.*, 
-    categories.name AS categoryName,
-    categories.short_description,
-    rarities.name AS rarityName,
-    rarities.id AS rarityId
-    FROM pools 
-    INNER JOIN categories 
-    ON pools.categoryId = categories.id
-    INNER JOIN rarities
-    ON categories.rarityId = rarities.id;
-    `;
-
-    try {
-      const result = await pool.query(query);
-      return result.rows;
-    } catch (error) {
-      console.error("Error getting all pools: ", error.stack);
-    }
+  constructor() {
+    this.poolModel = new PoolModel();
   }
 
-  static async getById({ poolId }) {
-    const query = `
-    SELECT * 
-    FROM pools 
-    INNER JOIN categories 
-    ON pools.categoryId = categories.id
-    WHERE pools.categoryId = $1;
-  `;
-
-    try {
-      const result = await pool.query(query, [poolId]);
-      return result.rows[0];
-    } catch (error) {
-      console.error("Error getting pool by id: ", error.stack);
-    }
+  async getAll() {
+    return await this.poolModel.getAll();
   }
 
-  static async createPool({ poolId, basePrice, gameId }) {
-    const imageUrl = `https://nft-rent-marketplace.s3.us-east-2.amazonaws.com/categories/${poolId}.png`
-    const query = `
-    INSERT INTO pools (categoryId, isActive, basePrice, imageUrl, gameId) 
-    VALUES ($1, true, $2, '${imageUrl}', $3)
-    RETURNING *;
-  `;
-    console.log("query: ", query)
-    try {
-      const result = await pool.query(query, [poolId, basePrice, gameId]);
-      return result.rows[0];
-    } catch (error) {
-      console.error("Error creating pool: ", error.stack);
-    }
+  async getById(categoryId) {
+    return await this.poolModel.getById(categoryId);
+  }
+
+  async createPool({ categoryId, basePrice, gameId }) {
+    return await this.poolModel.createPool({ categoryId, basePrice, gameId });
   }
 }
 

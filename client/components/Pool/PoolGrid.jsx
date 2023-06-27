@@ -41,7 +41,7 @@ export default function PoolGrid({ isLoading, data }) {
             </div>
           ))
         ) : (
-          <Text fontSize={25} fontFamily={'Big Shoulders Text'}>
+          <Text fontSize={25} fontFamily={'Manrope'}>
             0 pools found
           </Text>
         )}

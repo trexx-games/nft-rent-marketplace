@@ -14,6 +14,5 @@ app.use(express.json());
 app.use("/items", itemRoutes);
 app.use("/pools", poolRoutes);
 app.use("/rents", rentRoutes);
-app.use("/recommendations", recommendationRoutes);
 
 module.exports.handler = serverless(app);

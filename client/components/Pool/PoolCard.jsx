@@ -81,7 +81,7 @@ export default function PoolCard({ pool }) {
           color={'white'}
           fontSize={20}
           fontWeight="bold"
-          fontFamily={'Bayon'}
+          fontFamily={'Manrope'}
           mb={1}
         >
           {pool.categoryname}
@@ -89,7 +89,7 @@ export default function PoolCard({ pool }) {
         <Text
           color={'white'}
           fontSize={25}
-          fontFamily={'big shoulders text'}
+          fontFamily={'Dela Gothic One'}
           mb={1}
         >
           {pool.rarityname}

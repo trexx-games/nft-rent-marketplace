@@ -19,7 +19,7 @@ import {
   ModalFooter,
   Button,
 } from '@chakra-ui/react';
-import {  useState } from 'react';
+import { useState } from 'react';
 
 export function Navbar() {
   const [activeTab, setActiveTab] = useState('');
@@ -28,30 +28,18 @@ export function Navbar() {
   return (
     <Box maxW={'85%'} m={'auto'} py={'14px'} px={'35px'}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
-        <Link as={NextLink} href={'/'}>
-          <Image
-            objectFit="contain"
-            src="/logo_bbg.png"
-            obj
-            alt="Logo"
-            boxSize="80px"
-            mr="20px"
-            width={'100%'}
-            minWidth={'80px'}
-          />
-        </Link>
         <Flex direction={'row'}>
           <Link
             as={NextLink}
             href={'/'}
             mx={2.5}
-            fontFamily={'Bayon'}
+            fontFamily={'Manrope'}
             fontSize={'22'}
-            color={activeTab === '/' ? '#FBAA0B' : undefined}
+            color={activeTab === '/' ? '#66E383' : undefined}
             textDecoration={activeTab === '/' ? 'underline' : undefined}
             onClick={() => setActiveTab('/')}
             _hover={{
-              color: '#FBAA0B',
+              color: '#66E383',
               textDecoration: 'underline',
               transition: 'color 0.2s',
             }}
@@ -60,15 +48,15 @@ export function Navbar() {
           </Link>
           <Link
             as={NextLink}
-            color={activeTab === '/pools' ? '#FBAA0B' : undefined}
+            color={activeTab === '/pools' ? '#66E383' : undefined}
             textDecoration={activeTab === '/pools' ? 'underline' : undefined}
             onClick={() => setActiveTab('/pools')}
             href={'/pools'}
             mx={2.5}
-            fontFamily={'Bayon'}
+            fontFamily={'Manrope'}
             fontSize={'22'}
             _hover={{
-              color: '#FBAA0B',
+              color: '#66E383',
               textDecoration: 'underline',
               transition: 'color 0.2s',
             }}
@@ -77,17 +65,17 @@ export function Navbar() {
           </Link>
           <Link
             as={NextLink}
-            color={activeTab === '/inventory' ? '#FBAA0B' : undefined}
+            color={activeTab === '/inventory' ? '#66E383' : undefined}
             textDecoration={
               activeTab === '/inventory' ? 'underline' : undefined
             }
             onClick={() => setActiveTab('/inventory')}
             href={'/inventory'}
             mx={2.5}
-            fontFamily={'Bayon'}
+            fontFamily={'Manrope'}
             fontSize={'22'}
             _hover={{
-              color: '#FBAA0B',
+              color: '#66E383',
               textDecoration: 'underline',
               transition: 'color 0.2s',
             }}
@@ -96,9 +84,9 @@ export function Navbar() {
           </Link>
         </Flex>
         <Flex direction={'row'} alignItems={'center'}>
-          <ConnectWallet style={{ fontFamily: 'Bayon' }} />
+          <ConnectWallet style={{ fontFamily: 'Manrope' }} />
         </Flex>
       </Flex>
-    </Box>
+    </Box >
   );
 }
