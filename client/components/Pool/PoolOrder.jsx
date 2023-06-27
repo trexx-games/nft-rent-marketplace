@@ -51,7 +51,7 @@ export default function PoolOrder({ pool }) {
 
   useEffect(() => {
     handleRentDaysChange(rentDays);
-  }, []);
+  }, [handleRentDaysChange, rentDays]);
 
   const handleRentDaysChange = async (value) => {
     setRentDays(value);

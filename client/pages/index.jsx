@@ -52,7 +52,7 @@ export default function Home() {
               Improve your in-game performance
             </Text>
             <Text marginTop={'15px'} fontFamily={'Manrope'} fontSize='xl' color={'black'}>
-              Rent NFTs from our platform and amplify your in-game prowess with unparalleled access to the item you've always wanted.
+              Rent NFTs from our platform and amplify your in-game prowess with unparalleled access to the item you have always wanted.
             </Text>
           </Box>
           <Box flex="1" p={5}>

@@ -7,6 +7,7 @@ const Footer = () => (
     </Text>
     <Image
       marginLeft={'10px'}
+      alt='logo_bbg'
       src="/logo_bbg.png"
       maxWidth={'90px'}
       maxHeight={'90px'}
