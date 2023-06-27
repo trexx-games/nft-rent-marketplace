@@ -23,17 +23,19 @@ class NFTRentMarketplaceEventWorker {
   }
 
   async onRentStarted(event) {
-    const payload = {
-      rentId: Number(`${event.data.rentId._hex}`),
-      poolId: Number(`${event.data.poolId._hex}`),
-      rentee: event.data.rentee,
-      owner: event.data.owner,
-      nftId: Number(`${event.data.itemNftId._hex}`),
-      price: Number(`${event.data.price._hex}`),
-      expirationDate: new Date(Number(`${event.data.expirationDate._hex}`) * 1000),
-      initDate: new Date(Number(`${event.data.initDate._hex}`) * 1000),
-    }
+    const item = await axios.get(`${this.nftRentMarketplaceApi}/items/get-by-nft-id/${Number(event.data.itemNftId._hex)}`)
     try {
+      const payload = {
+        id: Number(`${event.data.rentId._hex}`),
+        itemId: item.id,
+        poolId: Number(`${event.data.poolId._hex}`),
+        renteeAddress: event.data.rentee,
+        ownerAddress: event.data.owner,
+        nftId: Number(`${event.data.itemNftId._hex}`),
+        priceBlockchain: Number(`${event.data.price._hex}`),
+        expirationDate: new Date(Number(`${event.data.expirationDate._hex}`) * 1000),
+        initDate: new Date(Number(`${event.data.initDate._hex}`) * 1000),
+      }
       await axios.post(`${this.nftRentMarketplaceApi}/rents/start-rent`, payload);
     } catch (error) {
       console.error('Error:', error.message);
