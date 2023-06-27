@@ -1,8 +1,6 @@
-const ItemModel = require('../models/itemModel');
-
 class ItemService {
-  constructor() {
-    this.itemModel = new ItemModel();
+  constructor(itemModel) {
+    this.itemModel = itemModel;
   }
 
   async getItemByNftId(nftId) {

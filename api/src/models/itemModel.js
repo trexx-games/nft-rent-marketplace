@@ -1,7 +1,5 @@
-const pool = require("../../helpers/pgConnection");
-
 class ItemModel {
-  constructor() {
+  constructor(pool) {
     this.pool = pool;
   }
 
@@ -17,6 +15,7 @@ class ItemModel {
       return result.rows;
     } catch (error) {
       console.error("Error getting item by NFT ID: ", error.stack);
+      throw error;
     }
   }
 
@@ -32,6 +31,7 @@ class ItemModel {
       return result.rows[0];
     } catch (error) {
       console.error("Error creating item: ", error.stack);
+      throw error;
     }
   }
 
@@ -47,6 +47,7 @@ class ItemModel {
     }
     catch (error) {
       console.error("Error getting items by owner: ", error.stack);
+      throw error;
     }
   }
 
@@ -62,6 +63,7 @@ class ItemModel {
     }
     catch (error) {
       console.error("Error getting idle items by owner: ", error.stack);
+      throw error;
     }
   }
 
@@ -77,6 +79,7 @@ class ItemModel {
     }
     catch (error) {
       console.error("Error renting item: ", error.stack);
+      throw error;
     }
   }
 
@@ -92,6 +95,7 @@ class ItemModel {
     }
     catch (error) {
       console.error("Error finishing rent: ", error.stack);
+      throw error;
     }
   }
 
@@ -107,6 +111,7 @@ class ItemModel {
     }
     catch (error) {
       console.error("Error adding item to pool: ", error.stack);
+      throw error;
     }
   }
 
@@ -122,6 +127,7 @@ class ItemModel {
     }
     catch (error) {
       console.error("Error getting items in pool by owner: ", error.stack);
+      throw error;
     }
   }
 
@@ -137,6 +143,7 @@ class ItemModel {
     }
     catch (error) {
       console.error("Error getting items rented by owner: ", error.stack);
+      throw error;
     }
   }
 }

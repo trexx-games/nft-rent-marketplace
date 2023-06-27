@@ -1,8 +1,6 @@
-const ItemService = require('../services/itemService');
-
 class ItemController {
-  constructor() {
-    this.itemService = new ItemService();
+  constructor(itemService) {
+    this.itemService = itemService;
   }
 
   async getItemByNftId(req, res) {
@@ -19,7 +17,7 @@ class ItemController {
         return res.status(404).json({ error: 'Item not found.' });
       }
 
-      res.json(item);
+      res.status(200).json(item);
     } catch (error) {
       console.error('Error getting item by NFT ID: ', error.stack);
       res.status(500).json({ error: 'Server error.' });
