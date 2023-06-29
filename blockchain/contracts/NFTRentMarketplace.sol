@@ -392,7 +392,7 @@ contract NFTRentMarketplace is ConfirmedOwner, IERC721Receiver {
     revert("Value not found in the array");
   }
 
-  function() external payable {
+  fallback() external payable {
     revert("Contract does not accept Ether directly.");
   }
 }
