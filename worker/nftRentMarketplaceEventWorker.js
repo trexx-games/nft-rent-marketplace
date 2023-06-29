@@ -8,7 +8,7 @@ class NFTRentMarketplaceEventWorker {
     this.contractAddress = env.nftRentMarketplaceContract;
     this.privateKey = env.walletPvKey;
     this.nftRentMarketplaceApi = env.nftRentMarketplaceApi;
-    this.provider = env.mumbaiRpcUrl;
+    this.provider = env.blockchainRpcUrl;
     this.init();
   }
 
