@@ -4,7 +4,7 @@ const mockItem = {
   categoryId: 123, 
   owner: 'Ana123',
   rentee: 'Bia456',
-  isInPool: true,
+  isInPool: true, 
   gameId: 123, 
   nftContractAddress: 'asd', 
   rarityId: 123, 
@@ -17,14 +17,15 @@ const mockNewItem = {
   nftId: 456, 
   categoryId: 123, 
   owner: 'Ana123',
-  rentee: 'Bia456',
-  isInPool: false, 
+  // rentee: null,
+  // isInPool: false, 
   gameId: 123, 
   nftContractAddress: 'qwe', 
   rarityId: 123, 
   blockchainId: 123,
-  isRented: false,
+  // isRented: false,
 };
+// não são obrigatórios para criar o item, possuem valor default.
 
 const mockUpdateItem = { 
   itemId: 123, 
@@ -40,7 +41,7 @@ const mockUpdateItem = {
   isRented: false,
 };
 
-const requiredFields = ['itemId', 'categoryId', 'owner', 'rentee', 'isInPool', 'gameId', 'nftContractAddress', 'nftId', 'rarityId', 'blockchainId', 'isRented'];
+const requiredFields = ['itemId', 'categoryId', 'owner', 'gameId', 'nftContractAddress', 'nftId', 'rarityId', 'blockchainId'];
 
 
 module.exports = { mockItem, mockNewItem, requiredFields, mockUpdateItem }

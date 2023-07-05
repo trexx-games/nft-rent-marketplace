@@ -81,13 +81,10 @@ describe('ItemController', () => {
           nftId: 123, 
           categoryId: 123, 
           owner: 'Ana123',
-          rentee: 'Bia456',
-          isInPool: true,
           gameId: 123, 
           nftContractAddress: 'asd', 
           rarityId: 123, 
           blockchainId: 456,
-          isRented: true,
       };
         mockMissingItem[field] = null;
 
@@ -98,8 +95,6 @@ describe('ItemController', () => {
 
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({ error: `Field ${field} is required.` });
-
-
       });
 
     });
