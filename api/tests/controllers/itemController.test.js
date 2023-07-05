@@ -103,6 +103,17 @@ describe('ItemController', () => {
       });
 
     });
+    it('should return 500 if failed to create item', async () => {
+      const req = { body: mockNewItem };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      jest.spyOn(itemService, 'createItem').mockResolvedValue(null);
+
+      await itemController.createItem(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Failed to create item.' });
+    });
     it('should return 500 if an error occurs', async () => {
       const req = { body: mockNewItem };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
