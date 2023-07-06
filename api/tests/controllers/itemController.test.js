@@ -36,7 +36,7 @@ describe('ItemController', () => {
       expect(res.json).toHaveBeenCalledWith({ error: 'Item not found.' });
     });
 
-    it('should return 500 if an error occurs', async () => {
+    it('should return 500 if a server error occurs', async () => {
       const req = { params: { nftId: 123 } };
       const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
@@ -77,10 +77,10 @@ describe('ItemController', () => {
     it('should return 400 if any required field is missing', async () => {
       requiredFields.forEach(async (field) => {
         const mockMissingItem = { 
-          itemId: 456, 
+          id: 456, 
           nftId: 123, 
           categoryId: 123, 
-          owner: 'Ana123',
+          ownerAddress: 'Ana123',
           gameId: 123, 
           nftContractAddress: 'asd', 
           rarityId: 123, 
@@ -134,7 +134,7 @@ describe('ItemController', () => {
   });
 
   describe('getByOwner', () => {
-    const owner = 'Ana123';
+    const ownerAddress = 'Ana123';
     it('should return 400 if owner adress is not provided', async () => {
       const req = { params: {} };
       const res = {
@@ -145,11 +145,11 @@ describe('ItemController', () => {
       await itemController.getByOwner(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Owner is required.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Owner adress is required.' });
     });
 
     it('should return 404 if items are not found', async () => {
-      const req = { params: { owner } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -164,7 +164,7 @@ describe('ItemController', () => {
     });
 
     it('should return 500 if a server error occurs', async () => {
-      const req = { params: { owner } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -179,7 +179,7 @@ describe('ItemController', () => {
     });
 
     it('should return 200 and items owned by the specified owner', async () => {
-      const req = { params: { owner } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -200,7 +200,7 @@ describe('ItemController', () => {
   });
 
   describe('getIdleByOwner', () => {
-    const owner = 'Ana123';
+    const ownerAddress = 'Ana123';
     it('should return 400 if owner adress is not provided', async () => {
       const req = { params: {} };
       const res = {
@@ -211,11 +211,11 @@ describe('ItemController', () => {
       await itemController.getIdleByOwner(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Owner is required.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Owner adress is required.' });
     });
 
     it('should return 404 if items are not found', async () => {
-      const req = { params: { owner } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -230,7 +230,7 @@ describe('ItemController', () => {
     });
 
     it('should return 500 if a server error occurs', async () => {
-      const req = { params: { owner } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -245,7 +245,7 @@ describe('ItemController', () => {
     });
 
     it('should return 200 and idle items owned by the specified owner', async () => {
-      const req = { params: { owner } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -340,6 +340,7 @@ describe('ItemController', () => {
   });
 
   describe('getItemsInPoolByUser', () => {
+    const ownerAddress = 'Ana123';
     it('should return 400 if owner address is not provided', async () => {
       const req = { params: {} };
       const res = {
@@ -355,8 +356,7 @@ describe('ItemController', () => {
     });
 
     it('should return 500 if a server error occurs', async () => {
-      const owner = 'John';
-      const req = { params: { owner } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -371,7 +371,7 @@ describe('ItemController', () => {
     });
 
     it('should return 200 and the items in pool for the specified owner', async () => {
-      const req = { params: { owner: 'Ana123' } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -388,6 +388,7 @@ describe('ItemController', () => {
   });
 
   describe('getItemsRentedByUser', () => {
+    const ownerAddress = 'Ana123';
     it('should return 400 if owner address is missing', async () => {
       const req = { params: {} };
       const res = {
@@ -402,7 +403,7 @@ describe('ItemController', () => {
     });
 
     it('should return 200 and items rented by the specified owner', async () => {
-      const req = { params: { owner: 'Ana123' } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
@@ -417,7 +418,7 @@ describe('ItemController', () => {
     });
 
     it('should return 500 if a server error occurs', async () => {
-      const req = { params: { owner: 'Ana123' } };
+      const req = { params: { ownerAddress } };
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
