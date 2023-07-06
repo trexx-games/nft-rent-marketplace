@@ -101,7 +101,7 @@ class RentController {
       if (!rent) {
         return res.status(500).json({ error: 'Failed to finish rent.' });
       }
-      this.itemService.finishRent(rent.itemId);
+      this.itemService.finishRent(rent.id);
 
       return res.status(200).json(rent);
     } catch (error) {

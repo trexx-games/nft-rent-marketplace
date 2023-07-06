@@ -108,11 +108,11 @@ class ItemController {
         return res.status(404).json({ error: 'Item not found.' });
       }
 
-      if (item.isInPool) { // camelize
+      if (item.isInPool) {
         return res.status(400).json({ error: 'Item is already in pool.' });
       }
 
-      const updatedItem = await this.itemService.addToPool(item.itemId); // item.id
+      const updatedItem = await this.itemService.addToPool(item.id);
 
       res.status(200).json(updatedItem);
     } catch (error) {

@@ -9,14 +9,15 @@ jest.mock('../../src/services/itemService');
 let rentController;
 let rentService;
 let itemService;
+let res;
 
 beforeEach(() => {
   rentService = new RentService();
   itemService = new ItemService();
   rentController = new RentController(rentService, itemService);
+  
+  res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 });
-
-const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
 
 describe('RentController', () => {
   describe('createRent', () => {
@@ -91,7 +92,7 @@ describe('RentController', () => {
       await rentController.getRentById(req, res);
 
       expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Rented item not found.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Rent not found.' });
     });
     
     it('should return 200 and the rent data with the specified ID', async () => {
@@ -130,7 +131,7 @@ describe('RentController', () => {
       await rentController.getActiveByOwner(req, res);
 
       expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Active rentals not found.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Active rents by owner not found.' });
     });
 
     it('should return 200 and active rents for the specified owner', async () => {
@@ -158,7 +159,6 @@ describe('RentController', () => {
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ error: 'Server error.' });
     });
-  });
   });
 
   describe('getActiveByRentee', () => {
@@ -189,11 +189,13 @@ describe('RentController', () => {
   });
 
   describe('finishRent', () => {
-    const rentId = '123';
+    const id = 1;
     it('should return 200 and finish the rent with the specified ID', async () => {
-      const req = { params: { rentId } }
-      rentService.finishRent.mockResolvedValue(rentData);
+      const req = { params: { id } }
 
+      jest.spyOn(rentService, 'finishRent').mockResolvedValue(rentData);
+      jest.spyOn(itemService, 'finishRent').mockResolvedValue();
+      
       await rentController.finishRent(req, res);
 
       expect(res.status).toHaveBeenCalledWith(200);
@@ -201,12 +203,12 @@ describe('RentController', () => {
     });
 
     it('should return 500 if a server error occurs', async () => {
-      const req = { params: { rentId } };
+      const req = { params: { id } };
 
       jest.spyOn(rentService, 'finishRent').mockRejectedValue(new Error('Test error'));
-
+      
       await rentController.finishRent(req, res);
-
+      
       expect(res.status).toHaveBeenCalledWith(500);
       expect(res.json).toHaveBeenCalledWith({ error: 'Server error.' });
     });
@@ -236,3 +238,5 @@ describe('RentController', () => {
       expect(res.json).toHaveBeenCalledWith({ error: 'Server error.' });
     });
   });
+
+});
