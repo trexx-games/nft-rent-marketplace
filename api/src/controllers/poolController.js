@@ -20,7 +20,7 @@ class PoolController {
   async getById(req, res) {
     const { id } = req.params;
     if (!id) {
-      return res.status(400).json({ error: 'Id is required.' });
+      return res.status(400).json({ error: 'Pool id is required.' });
     }
 
     try {

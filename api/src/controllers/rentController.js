@@ -6,7 +6,7 @@ class RentController {
 
   async createRent(req, res) {
     const rentData = req.body;
-    if (!rentData) {
+    if (!rentData) { 
       return res.status(400).json({ error: 'Rent data is required.' });
     }
 
@@ -19,7 +19,7 @@ class RentController {
 
     try {
       const rent = await this.rentService.createRent(rentData);
-      if (!rent) {
+      if (!rent) { 
         return res.status(500).json({ error: 'Failed to create rent.' });
       }
 
@@ -34,13 +34,13 @@ class RentController {
 
   async getRentById(req, res) {
     const { id } = req.params;
-    if (!id) {
+    if (!id) { 
       return res.status(400).json({ error: 'Rent ID is required.' });
     }
 
     try {
       const rent = await this.rentService.getRentById(id);
-      if (!rent) {
+      if (!rent) { 
         return res.status(404).json({ error: 'Rent not found.' });
       }
 
@@ -54,13 +54,13 @@ class RentController {
   async getActiveByOwner(req, res) {
     const { ownerAddress } = req.params;
 
-    if (!ownerAddress) {
+    if (!ownerAddress) { 
       return res.status(400).json({ error: 'Owner adress is required.' });
     }
 
     try {
       const rents = await this.rentService.getActiveByOwner(ownerAddress);
-      if (!rents) {
+      if (!rents) { 
         return res.status(404).json({ error: 'Active rents by owner not found.' });
       }
 
@@ -74,12 +74,12 @@ class RentController {
   async getActiveByRentee(req, res) {
     const { renteeAddress } = req.params;
     
-    if (!renteeAddress) {
+    if (!renteeAddress) { 
       return res.status(400).json({ error: 'Rentee adress is required.' });
     }
     try {
       const rents = await this.rentService.getActiveByRentee(renteeAddress);
-      if (!rents) {
+      if (!rents) { 
         return res.status(404).json({ error: 'Active rents by rentee not found.' });
       }
 
@@ -92,7 +92,7 @@ class RentController {
 
   async finishRent(req, res) {
     const { id } = req.params;
-    if (!id) {
+    if (!id) { 
       return res.status(400).json({ error: 'Rentee ID is required.' });
     }
 
@@ -112,13 +112,13 @@ class RentController {
 
   async getAllByRentee(req, res) {
     const { renteeAddress } = req.params;
-    if (!renteeAddress) {
+    if (!renteeAddress) { 
       return res.status(400).json({ error: 'Rentee address is required.' });
     }
 
     try {
       const rents = await this.rentService.getAllByRentee(renteeAddress);
-      if (!rents) {
+      if (!rents) { 
         return res.status(404).json({ error: 'All rents by rentee not found.' });
       }
 
