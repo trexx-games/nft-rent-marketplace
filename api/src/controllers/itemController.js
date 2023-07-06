@@ -31,7 +31,7 @@ class ItemController {
       return res.status(400).json({ error: 'Item data is required.' });
     }
 
-    const requiredFields = ['itemId', 'categoryId', 'owner', 'gameId', 'nftContractAddress', 'nftId', 'rarityId', 'blockchainId'];
+    const requiredFields = ['id', 'categoryId', 'ownerAdress', 'gameId', 'nftContractAddress', 'nftId', 'rarityId', 'blockchainId'];
     for (const field of requiredFields) {
       if (!itemData[field]) {
         return res.status(400).json({ error: `Field ${field} is required.` });
@@ -52,14 +52,14 @@ class ItemController {
   }
 
   async getByOwner(req, res) {
-    const { owner } = req.params;
+    const { ownerAddress } = req.params;
 
-    if (!owner) {
-      return res.status(400).json({ error: 'Owner is required.' });
+    if (!ownerAddress) {
+      return res.status(400).json({ error: 'Owner adress is required.' });
     }
 
     try {
-      const items = await this.itemService.getByOwner(owner);
+      const items = await this.itemService.getByOwner(ownerAddress);
 
       if (!items) {
         return res.status(404).json({ error: 'Items not found.' });
