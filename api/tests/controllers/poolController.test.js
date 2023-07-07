@@ -133,6 +133,17 @@ describe('PoolController', () => {
       expect(res.status).toHaveBeenCalledWith(201);
       expect(res.json).toHaveBeenCalledWith(poolData);
     });
+
+    it('should return 500 if failed to create pool', async () => {
+      const req = { body: newPoolData };
+      jest.spyOn(poolService, 'createPool').mockResolvedValue(null);
+
+      await poolController.createPool(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Failed to create pool.' });
+    });
+
     it('should return 500 if a server error occurs', async () => {
       const req = { body: poolData };
 

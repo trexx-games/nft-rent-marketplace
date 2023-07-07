@@ -64,10 +64,20 @@ describe('RentController', () => {
       expect(res.json).toHaveBeenCalledWith(newRentData);
     });
 
-    it('should return 500 if a server error occurs', async () => {
-      const req = { body: rentData };;
+    it('should return 500 if failed to create rent', async () => {
+      const req = { body: newRentData };
+      jest.spyOn(rentService, 'createRent').mockResolvedValue(null);
 
-      jest.spyOn(rentService, 'createRent').mockRejectedValue(new Error('Test error'));
+      await rentController.createRent(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(500);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Failed to create rent.' });
+    });
+
+    it('should return 500 if a server error occurs', async () => {
+      const req = { body: newRentData };
+
+      jest.spyOn(rentService, 'createRent').mockRejectedValue(rentData);
       jest.spyOn(itemService, 'rentItem').mockRejectedValue(new Error('Test error'));      
 
       await rentController.createRent(req, res);
@@ -177,10 +187,10 @@ describe('RentController', () => {
     const renteeAddress = 'rentee123';
     it('should return 400 if Rentee ID is not provided', async () => {
       const req = { params: {} };
-      await rentController.finishRent(req, res);
+      await rentController.getActiveByRentee(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Rentee ID is required.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Rentee address is required.' });
     });
 
     it('should return 404 if Active rents by rentee not found', async () => {

@@ -131,6 +131,10 @@ class ItemController {
     try {
       const items = await this.itemService.getItemsInPoolByUser(ownerAddress);
 
+      if (!items) {
+        return res.status(404).json({ error: 'Items in pool by user not found.' });
+      }
+
       res.status(200).json(items);
     } catch (error) {
       console.error('Error getting items in pool by user: ', error.stack);
@@ -146,6 +150,11 @@ class ItemController {
 
     try {
       const items = await this.itemService.getItemsRentedByUser(ownerAddress);
+
+      if (!items) {
+        return res.status(404).json({ error: 'Items rented by user not found.' });
+      }
+
       res.status(200).json(items);
     } catch (error) {
       console.error('Error getting items rented by user: ', error.stack);

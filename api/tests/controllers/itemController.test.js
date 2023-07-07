@@ -348,11 +348,22 @@ describe('ItemController', () => {
         json: jest.fn(),
       };
 
-      const itemController = new ItemController(null);
       await itemController.getItemsInPoolByUser(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({ error: 'Owner address is required.' });
+    });
+
+    it('should return 404 if item is not found', async () => {
+      const req = { params: { ownerAddress } };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      jest.spyOn(itemService, 'getItemsInPoolByUser').mockResolvedValue(null);
+
+      await itemController.getItemsInPoolByUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Items in pool by user not found.' });
     });
 
     it('should return 500 if a server error occurs', async () => {
@@ -400,6 +411,18 @@ describe('ItemController', () => {
 
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({ error: 'Owner address is required.' });
+    });
+
+    it('should return 404 if item is not found', async () => {
+      const req = { params: { ownerAddress } };
+      const res = { status: jest.fn().mockReturnThis(), json: jest.fn() };
+
+      jest.spyOn(itemService, 'getItemsRentedByUser').mockResolvedValue(null);
+
+      await itemController.getItemsRentedByUser(req, res);
+
+      expect(res.status).toHaveBeenCalledWith(404);
+      expect(res.json).toHaveBeenCalledWith({ error: 'Items rented by user not found.' });
     });
 
     it('should return 200 and items rented by the specified owner', async () => {
