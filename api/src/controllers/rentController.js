@@ -23,8 +23,7 @@ class RentController {
         return res.status(500).json({ error: 'Failed to create rent.' });
       }
 
-      await this.itemService.rentItem(rent.id, rent.renteeAddress);
-
+      await this.itemService.rentItem(rent.itemId, rent.renteeAddress);
       return res.status(201).json(rent);
     } catch (error) {
       console.error('Error creating rent: ', error.stack);
@@ -40,8 +39,8 @@ class RentController {
 
     try {
       const rent = await this.rentService.getRentById(id);
-      if (!rent) { 
-        return res.status(404).json({ error: 'Rent by ID not found.' });
+       if (!rent) { 
+        return res.status(404).json({ error: 'Rent not found.' });
       }
 
       return res.status(200).json(rent);
@@ -53,7 +52,6 @@ class RentController {
 
   async getActiveByOwner(req, res) {
     const { ownerAddress } = req.params;
-
     if (!ownerAddress) { 
       return res.status(400).json({ error: 'Owner address is required.' });
     }
@@ -73,10 +71,10 @@ class RentController {
 
   async getActiveByRentee(req, res) {
     const { renteeAddress } = req.params;
-    
     if (!renteeAddress) { 
       return res.status(400).json({ error: 'Rentee address is required.' });
     }
+
     try {
       const rents = await this.rentService.getActiveByRentee(renteeAddress);
       if (!rents) { 
@@ -101,7 +99,7 @@ class RentController {
       if (!rent) {
         return res.status(500).json({ error: 'Failed to finish rent.' });
       }
-      this.itemService.finishRent(rent.id);
+      this.itemService.finishRent(rent.itemId);
 
       return res.status(200).json(rent);
     } catch (error) {

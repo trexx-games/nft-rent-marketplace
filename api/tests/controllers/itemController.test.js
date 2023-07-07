@@ -211,7 +211,7 @@ describe('ItemController', () => {
       await itemController.getIdleByOwner(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Owner adress is required.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Owner address is required.' });
     });
 
     it('should return 404 if items are not found', async () => {

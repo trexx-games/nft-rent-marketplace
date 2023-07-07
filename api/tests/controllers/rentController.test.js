@@ -106,7 +106,7 @@ describe('RentController', () => {
       await rentController.getRentById(req, res);
 
       expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Rent by ID not found.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Rent not found.' });
     });
     
     it('should return 200 and the rent data with the specified ID', async () => {
@@ -212,6 +212,7 @@ describe('RentController', () => {
 
       await rentController.getActiveByRentee(req, res);
 
+      expect(rentService.getActiveByRentee).toHaveBeenCalledWith(renteeAddress);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith([rentData]);
     });

@@ -76,7 +76,7 @@ class ItemController {
     const { ownerAddress } = req.params;
 
     if (!ownerAddress) {
-      return res.status(400).json({ error: 'Owner adress is required.' });
+      return res.status(400).json({ error: 'Owner address is required.' });
     }
 
     try {
