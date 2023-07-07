@@ -4,7 +4,7 @@ class ItemService {
   }
 
   async getItemByNftId(nftId) {
-    return await this.itemModel.getItemByNftId({ nftId });
+    return await this.itemModel.getItemByNftId(Number(nftId));
   }
 
   async createItem(itemData) {

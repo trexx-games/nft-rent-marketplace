@@ -69,7 +69,7 @@ class ItemModel {
     }
   }
 
-  async rentItem(itemId, rentee) {
+  async rentItem({ itemId, rentee }) {
     const query = `
       UPDATE items
       SET rentee_address = $1, is_rented = true

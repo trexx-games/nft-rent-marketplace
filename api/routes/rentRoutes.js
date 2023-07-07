@@ -1,10 +1,11 @@
 const express = require('express');
-const RentController = require('../src/controllers/rentController');
 const ItemModel = require('../src/models/itemModel');
 const ItemService = require('../src/services/itemService');
+const RentModel = require('../src/models/rentModel');
 const RentService = require('../src/services/rentService');
+const RentController = require('../src/controllers/rentController');
 
-const rentModel = new rentModel();
+const rentModel = new RentModel();
 const rentService = new RentService(rentModel);
 const itemModel = new ItemModel();
 const itemService = new ItemService(itemModel);

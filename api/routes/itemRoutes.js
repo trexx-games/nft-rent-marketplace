@@ -14,5 +14,6 @@ router.put('/add-to-pool/:nftId', (req, res) => itemController.addToPool(req, re
 router.get('/get-in-pool/:owner', (req, res) => itemController.getItemsInPoolByUser(req, res));
 router.get('/get-rented/:owner', (req, res) => itemController.getItemsRentedByUser(req, res));
 router.get('/get-owned/:owner', (req, res) => itemController.getByOwner(req, res));
-router.get('/get-by-nft-id/:nftId', (req, res) => itemController.getByNftId(req, res));
+router.get('/get-by-nft-id/:nftId', (req, res) => itemController.getItemByNftId(req, res));
+
 module.exports = router;
