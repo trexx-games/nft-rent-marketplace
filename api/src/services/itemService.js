@@ -3,8 +3,8 @@ class ItemService {
     this.itemModel = itemModel;
   }
 
-  async getItemByNftId(nftId) {
-    return await this.itemModel.getItemByNftId(nftId);
+  async getItemByNftId({ nftId, nftContractAddress }) {
+    return await this.itemModel.getItemByNftId({ nftId, nftContractAddress });
   }
 
   async getById(itemId) {

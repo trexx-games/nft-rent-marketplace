@@ -25,7 +25,9 @@ class NFTRentMarketplaceEventWorker {
 
 
   async onRentStarted(event) {
-    const item = await axios.get(`${this.nftRentMarketplaceApi}/items/get-by-nft-id/${Number(event.data.itemNftId._hex)}`)
+    const nftId = Number(`${event.data.itemNftId._hex}`)
+    const nftContractAddress = event.data.nftContractAddress
+    const item = await axios.get(`${this.nftRentMarketplaceApi}/items/get-by-nft-id/${nftId}/${nftContractAddress}`)
     try {
       const payload = {
         id: Number(`${event.data.rentId._hex}`),
