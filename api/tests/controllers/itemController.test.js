@@ -135,7 +135,7 @@ describe('ItemController', () => {
 
   describe('getByOwner', () => {
     const ownerAddress = 'Ana123';
-    it('should return 400 if owner adress is not provided', async () => {
+    it('should return 400 if owner address is not provided', async () => {
       const req = { params: {} };
       const res = {
         status: jest.fn().mockReturnThis(),
@@ -145,7 +145,7 @@ describe('ItemController', () => {
       await itemController.getByOwner(req, res);
 
       expect(res.status).toHaveBeenCalledWith(400);
-      expect(res.json).toHaveBeenCalledWith({ error: 'Owner adress is required.' });
+      expect(res.json).toHaveBeenCalledWith({ error: 'Owner address is required.' });
     });
 
     it('should return 404 if items are not found', async () => {
@@ -201,7 +201,7 @@ describe('ItemController', () => {
 
   describe('getIdleByOwner', () => {
     const ownerAddress = 'Ana123';
-    it('should return 400 if owner adress is not provided', async () => {
+    it('should return 400 if owner address is not provided', async () => {
       const req = { params: {} };
       const res = {
         status: jest.fn().mockReturnThis(),

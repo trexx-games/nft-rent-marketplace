@@ -39,7 +39,7 @@ describe('RentController', () => {
           priceBlockchain: 100,
           ownerAddress: 'owner123',
           renteeAddress: 'rentee123',
-          poolId: 1,
+          categoryId: 1,
           itemId: 123,
       };
         mockMissingRentData[field] = null;

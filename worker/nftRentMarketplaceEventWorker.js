@@ -28,10 +28,9 @@ class NFTRentMarketplaceEventWorker {
       const payload = {
         id: Number(`${event.data.rentId._hex}`),
         itemId: item.id,
-        poolId: Number(`${event.data.poolId._hex}`),
+        categoryId: Number(`${event.data.poolId._hex}`),
         renteeAddress: event.data.rentee,
         ownerAddress: event.data.owner,
-        nftId: Number(`${event.data.itemNftId._hex}`),
         priceBlockchain: Number(`${event.data.price._hex}`),
         expirationDate: new Date(Number(`${event.data.expirationDate._hex}`) * 1000),
         initDate: new Date(Number(`${event.data.initDate._hex}`) * 1000),
@@ -44,10 +43,10 @@ class NFTRentMarketplaceEventWorker {
   async onRentFinished(event) {
     const payload = {
       id: Number(`${event.data.rentId._hex}`),
-      // finishDate: new Date(Number(`${event.data.finishDate._hex}`) * 1000),
+      finishDate: new Date(Number(`${event.data.finishDate._hex}`) * 1000),
     }
     try {
-      await axios.post(`${this.nftRentMarketplaceApi}/rents/finish-rent`, payload);
+      await axios.patch(`${this.nftRentMarketplaceApi}/rents/finish-rent`, payload);
     } catch (error) {
       console.error('Error:', error.message);
     }
@@ -55,9 +54,9 @@ class NFTRentMarketplaceEventWorker {
   async onPoolCreated(event) {
     try {
       const payload = {
-        id: Number(`${event.data.poolId._hex}`), // mesmo que categoryId?
+        categoryId: Number(`${event.data.poolId._hex}`),
         basePrice: Number(`${event.data.basePrice._hex}`),
-        gameId: Number(`${event.data.gameId._hex}`), // verificar chave!
+        gameId: Number(`${event.data.gameId._hex}`),
       }
       await axios.post(`${this.nftRentMarketplaceApi}/pools/create-pool`, payload);
     } catch (error) {
@@ -67,14 +66,14 @@ class NFTRentMarketplaceEventWorker {
   async onItemCreated(event) {
     try {
       const payload = {
-        id: Number(`${event.data.itemId._hex}`), // verificar chave!
-        nftId: Number(`${event.data.nftId._hex}`), // a cahve não seria itemNftId ?
+        id: Number(`${event.data.itemId._hex}`),
+        nftId: Number(`${event.data.nftId._hex}`),
         categoryId: Number(`${event.data.categoryId._hex}`),
         ownerAddress: event.data.owner,
-        gameId: Number(`${event.data.gameId._hex}`), // verificar chave!
-        nftContractAddress: '', // verificar chave!
-        rarityId: Number(`${event.data.rariryId._hex}`), // verificar chave!
-        blockchainId: Number(`${event.data.blockchainId._hex}`), // verificar chave!
+        gameId: Number(`${event.data.gameId._hex}`),
+        nftContractAddress: '',
+        rarityId: Number(`${event.data.rariryId._hex}`),
+        blockchainId: Number(`${event.data.blockchainId._hex}`),
       }
       await axios.post(`${this.nftRentMarketplaceApi}/items/create-item`, payload);
     } catch (error) {
@@ -85,7 +84,7 @@ class NFTRentMarketplaceEventWorker {
     try {
       console.log(event);
       const nftId = Number(`${event.data.nftId._hex}`)
-      await axios.post(`${this.nftRentMarketplaceApi}/items/add-to-pool/${nftId}`);
+      await axios.put(`${this.nftRentMarketplaceApi}/items/add-to-pool/${nftId}`);
     } catch (error) {
       console.error('Error:', error.message);
     }

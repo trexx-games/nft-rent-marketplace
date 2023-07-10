@@ -5,7 +5,7 @@ class ItemModel {
     this.pool = pool;
   }
 
-  async getItemByNftId({nftId}) {
+  async getItemByNftId(nftId) {
     const query = `
     SELECT * 
     FROM items 
@@ -14,7 +14,7 @@ class ItemModel {
 
     try {
       const result = await this.pool.query(query, [nftId]);
-      return camelize(result.rows);
+      return camelize(result.rows[0]);
     } catch (error) {
       console.error("Error getting item by NFT ID: ", error.stack);
       throw error;
