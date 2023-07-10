@@ -19,8 +19,8 @@ class RentService {
     return await this.rentModel.getActiveByRentee(renteeAddress);
   }
 
-  async finishRent(id) {
-    return await this.rentModel.finishRent(id);
+  async finishRent(finishRentData) {
+    return await this.rentModel.finishRent(finishRentData);
   }
 
   async getAllByRentee(renteeAddress) {

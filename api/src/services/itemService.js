@@ -12,16 +12,16 @@ class ItemService {
     return await this.itemModel.createItem(itemData);
   }
 
-  async getByOwner(owner) {
-    return await this.itemModel.getByOwner(owner);
+  async getByOwner(ownerAddress) {
+    return await this.itemModel.getByOwner(ownerAddress);
   }
 
-  async getIdleByOwner(owner) {
-    return await this.itemModel.getIdleByOwner(owner);
+  async getIdleByOwner(ownerAddress) {
+    return await this.itemModel.getIdleByOwner(ownerAddress);
   }
 
-  async rentItem(itemId, rentee) {
-    return await this.itemModel.rentItem({ itemId, rentee });
+  async rentItem(rentItemData) {
+    return await this.itemModel.rentItem(rentItemData);
   }
 
   async finishRent(itemId) {
