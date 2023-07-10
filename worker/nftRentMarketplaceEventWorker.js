@@ -93,8 +93,9 @@ class NFTRentMarketplaceEventWorker {
 
   async onItemAddedToPool(event) {
     try {
-      const nftId = Number(`${event.data.nftId._hex}`)
-      await axios.post(`${this.nftRentMarketplaceApi}/items/add-to-pool/${nftId}`);
+      const nftId = Number(`${event.data.itemNftId._hex}`)
+      const nftContractAddress = event.data.nftContractAddress
+      await axios.post(`${this.nftRentMarketplaceApi}/items/add-to-pool/${nftId}/${nftContractAddress}`);
     } catch (error) {
       console.error('Error:', error.message);
     }

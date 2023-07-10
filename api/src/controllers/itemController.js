@@ -92,14 +92,14 @@ class ItemController {
   }
 
   async addToPool(req, res) {
-    const { nftId } = req.params;
+    const { nftId, nftContractAddress } = req.params;
 
-    if (!nftId) {
-      return res.status(400).json({ error: 'Nft ID is required.' });
+    if (!nftId || !nftContractAddress) {
+      return res.status(400).json({ error: 'Nft ID and NFT Contract Address is required.' });
     }
 
     try {
-      const item = await this.itemService.getItemByNftId(nftId);
+      const item = await this.itemService.getItemByNftId({ nftId, nftContractAddress });
       if (!item) {
         return res.status(404).json({ error: 'Item not found.' });
       }
