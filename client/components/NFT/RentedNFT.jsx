@@ -1,4 +1,4 @@
-import { NFT_BBG_ADDRESS, NFT_CS_ADDRESS } from '../const/addresses';
+import { NFT_BBG_ADDRESS, NFT_CS_ADDRESS } from '../../const/addresses';
 import { useContract, useNFT } from '@thirdweb-dev/react';
 import {
   useDisclosure,
