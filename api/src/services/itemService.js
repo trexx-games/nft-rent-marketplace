@@ -32,6 +32,7 @@ class ItemService {
   }
 
   async addToPool(itemId) {
+    itemId = Number(itemId)
     return await this.itemModel.addToPool(itemId);
   }
 

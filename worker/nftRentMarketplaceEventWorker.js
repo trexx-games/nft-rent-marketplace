@@ -51,7 +51,7 @@ class NFTRentMarketplaceEventWorker {
       itemId: Number(`${event.data.itemId._hex}`),
     }
     try {
-      await axios.post(`${this.nftRentMarketplaceApi}/rents/finish-rent`, payload);
+      await axios.patch(`${this.nftRentMarketplaceApi}/rents/finish-rent`, payload);
     } catch (error) {
       console.error('Error:', error.message);
     }

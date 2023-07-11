@@ -5,7 +5,7 @@ class ItemModel {
     this.pool = pool;
   }
 
-  async getItemByNftId({nftId, nftContractAddress}) {
+  async getItemByNftId({ nftId, nftContractAddress }) {
     const query = `
     SELECT * 
     FROM items 
