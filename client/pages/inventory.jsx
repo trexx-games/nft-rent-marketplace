@@ -142,8 +142,8 @@ export default function Inventory() {
               ) : rentedItems?.rents?.length > 0 ? (
                 rentedItems?.rents?.map((rentedItem) => (
                   <RentedNFT
-                    key={rentedItem.nftId}
-                    nftId={rentedItem.nftId}
+                    key={rentedItem.nftid}
+                    nftId={rentedItem.nftid}
                     rentData={rentedItem}
                   />
                 ))
