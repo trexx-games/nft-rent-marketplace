@@ -23,10 +23,8 @@ import NFTGrid from '../components/NFT/NFTGrid';
 import { NFT_BBG_ADDRESS, NFT_CS_ADDRESS } from '../const/addresses';
 import useSWR from 'swr';
 import NextLink from 'next/link';
-import { URLS } from '../config/urls';
+import { URLS, fetcher } from '../config/urls';
 import RentedNFT from '../components/NFT/RentedNFT';
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function Inventory() {
   const address = useAddress();

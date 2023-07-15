@@ -1,18 +1,18 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { ThirdwebProvider } from '@thirdweb-dev/react';
-import React, { useState } from 'react';
 import Head from 'next/head';
+import React, { useState } from 'react';
 import { Navbar } from '../components/Navbar';
-import ChainContext from '../context/ChainContext';
+import { ChainContext } from '../context/ChainContext';
 import '../styles/globals.css';
 
 
 function MyApp({ Component, pageProps }) {
-  const [selectedChain, setSelectedChain] = useState("mumbai");
+  const [selectedChain, setSelectedChain] = useState('mumbai');
 
   return (
     <ChainContext.Provider value={{ selectedChain, setSelectedChain }}>
-      <ThirdwebProvider activeChain={'mumbai'}>
+      <ThirdwebProvider activeChain={ selectedChain }>
         <ChakraProvider>
           <Head>
             <title>NFT Rent</title>
