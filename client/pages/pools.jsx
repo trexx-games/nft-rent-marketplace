@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Select, Container, Flex, Spacer, Text } from '@chakra-ui/react';
+import { Container, Flex, Spacer } from '@chakra-ui/react';
 import PoolGrid from '../components/Pool/PoolGrid';
 import useSWR from 'swr';
 import { URLS } from '../config/urls';
 import FilterBar from '../components/FilterBar';
+import SelectChain from '../components/SelectChain';
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -26,6 +27,7 @@ export default function Pools() {
     <Container maxW={'90%'} p={5}>
       <Flex>
         <Spacer />
+        <SelectChain />
         <FilterBar gameIds={gameIds} onFilterChange={handleFilterChange} />
       </Flex>
       <PoolGrid isLoading={isLoading} data={filteredPools} />
