@@ -19,10 +19,8 @@ import {
 import { useAddress } from '@thirdweb-dev/react';
 import React from 'react';
 import useSWR from 'swr';
-import { URLS } from '../../config/urls';
+import { URLS, fetcher } from '../../config/urls';
 import ProfileNFT from '../../components/NFT/ProfileNFT';
-
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export default function ProfilePage() {
   const address = useAddress();
